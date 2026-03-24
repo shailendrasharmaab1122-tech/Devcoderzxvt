@@ -20,79 +20,151 @@
             font-family: 'Segoe UI', sans-serif; overflow: hidden;
         }
 
-        /* 1. Header design waisa hi rahega */
+        /* Full Screen Loader */
+        #_L0x {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 99999;
+            color: var(--accent); font-family: monospace; gap: 12px;
+        }
+        ._b { width: 120px; height: 2px; background: #161b22; position: relative; }
+        ._b::after { 
+            content: ''; position: absolute; width: 40%; height: 100%; 
+            background: var(--accent); animation: L 0.8s infinite; 
+        }
+        @keyframes L { 0% { left: 0 } 50% { left: 60% } 100% { left: 0 } }
+
+        /* Welcome Popup */
+        .P0x {
+            position: fixed; inset: 0; background: rgba(1,4,9,0.95);
+            backdrop-filter: blur(15px); z-index: 90000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .PC0x {
+            background: var(--surface); width: 90%; max-width: 400px;
+            padding: 40px; border-radius: 15px; border: 1px solid var(--border);
+            border-top: 4px solid var(--accent); text-align: center;
+        }
+
+        /* Layout */
         header {
-            height: 60px; background: var(--surface);
+            height: 65px; background: var(--surface);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; border-bottom: 1px solid var(--border);
-            position: relative; z-index: 2000;
+            position: relative; z-index: 1000;
         }
+        .logo { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 900; font-size: 1.3rem; }
 
-        .logo { font-family: monospace; color: var(--accent); font-weight: 900; font-size: 1.2rem; }
-
-        /* 2. IFRAME TRICK: Yahan se unka popup/header hide hoga */
-        .wrapper {
+        /* Iframe Container - Zoom/Crop Trick */
+        .M0x {
             width: 100%;
-            height: calc(100vh - 60px);
-            overflow: hidden; /* Bahar ka content cut jayega */
+            height: calc(100vh - 65px);
+            overflow: hidden;
             position: relative;
+            background: #000;
         }
-
         iframe {
             width: 100%;
-            height: calc(100% + 150px); /* Height thodi badha di */
+            /* Humne height 110% rakhi hai aur top -50px taaki unka center popup shift ho jaye */
+            height: 110%; 
             border: none;
             position: absolute;
-            top: -70px; /* Isse unka top wala popup/header upar nikal jayega */
+            top: -40px; 
             left: 0;
+            transition: 0.5s;
         }
 
-        /* Sidebar simple */
-        .sidebar {
-            position: fixed; left: -300px; width: 260px; height: 100%;
-            background: #0d1117; transition: 0.3s; z-index: 10001;
-            padding: 20px; border-right: 1px solid var(--border);
+        /* Sidebar */
+        .SD0x {
+            position: fixed; left: -320px; width: 280px; height: 100%;
+            background: #0d1117; transition: 0.4s cubic-bezier(0.4,0,0.2,1);
+            z-index: 10000; padding: 30px 20px; border-right: 1px solid var(--border);
         }
-        .sidebar.active { left: 0; }
-        
-        .admin-card {
-            background: rgba(56,189,248,0.05); padding: 15px;
-            border-radius: 10px; border: 1px solid rgba(56,189,248,0.2);
-            margin-bottom: 20px;
-        }
-
-        .btn { padding: 12px; display: flex; align-items: center; gap: 10px; color: #8b949e; text-decoration: none; cursor: pointer; }
-        .btn:hover { color: var(--accent); background: #161b22; border-radius: 8px; }
-
+        .SD0x.active { left: 0; }
+        .ADMIN_BOX { background: rgba(56,189,248,0.03); padding: 15px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.1); margin-bottom: 25px; }
+        .IT0x { padding: 14px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #8b949e; text-decoration: none; font-size: 14px; transition: 0.2s; }
+        .IT0x:hover { background: #161b22; color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <div id="sideMenu" class="sidebar">
-        <div class="admin-card">
-            <div style="font-weight: bold; font-size: 15px;">Devansh Sharma</div>
-            <div style="font-size: 10px; color: var(--accent);">FOUNDER</div>
-            <div style="margin-top:10px; font-weight: bold; font-size: 15px;">Assault Decoder</div>
-            <div style="font-size: 10px; color: var(--accent);">CO-FOUNDER</div>
+    <div id="_L0x">
+        <div>SYSTEM_INITIALIZING_...</div>
+        <div class="_b"></div>
+    </div>
+
+    <div id="_PX" class="P0x">
+        <div class="PC0x">
+            <h2 style="color:#fff;margin-bottom:10px">DevCoderZ 2.0</h2>
+            <p style="font-size:13px;color:#8b949e;margin-bottom:30px">
+                Premium Ad-Free Portal.<br>Click below to bypass restrictions and enter.
+            </p>
+            <button onclick="unlock()" style="width:100%; padding:15px; background:var(--accent); border:none; border-radius:8px; color:#010409; font-weight:bold; cursor:pointer; font-size:16px;">
+                UNLOCK SYSTEM
+            </button>
+            <div style="margin-top:20px;">
+                <a href="https://t.me/+8tZSJ5FyTXVjM2M1" target="_blank" style="color:var(--accent); text-decoration:none; font-size:12px;">JOIN OFFICIAL TELEGRAM</a>
+            </div>
         </div>
-        <div class="btn" onclick="location.reload()"><i class="fas fa-sync"></i> REBOOT</div>
-        <div class="btn" onclick="toggleSidebar()"><i class="fas fa-times"></i> CLOSE</div>
+    </div>
+
+    <div id="_SX" class="SD0x">
+        <div style="font-size:11px;color:var(--accent);font-family:'Space Mono';margin-bottom:10px">// CORE_ACCESS</div>
+        <div class="ADMIN_BOX">
+            <div style="margin-bottom:12px">
+                <div style="font-size:14px;font-weight:800;color:#fff"><i class="fas fa-crown" style="color:#fbbf24;"></i> Devansh Sharma</div>
+                <div style="font-size:10px;color:var(--accent);">OWNER</div>
+            </div>
+            <div>
+                <div style="font-size:14px;font-weight:800;color:#fff"><i class="fas fa-user-shield"></i> Assault Decoder</div>
+                <div style="font-size:10px;color:var(--accent);">CO-FOUNDER</div>
+            </div>
+        </div>
+        <div class="IT0x" onclick="location.reload()"><i class="fas fa-sync-alt"></i> REBOOT</div>
+        <div class="IT0x" onclick="toggleMenu()"><i class="fas fa-times"></i> CLOSE MENU</div>
     </div>
 
     <header>
-        <i class="fas fa-bars" style="cursor:pointer;" onclick="toggleSidebar()"></i>
+        <i class="fas fa-bars" style="cursor:pointer;color:#8b949e;font-size:20px" onclick="toggleMenu()"></i>
         <div class="logo">&lt;DevCoderZ/&gt;</div>
-        <div style="font-family: monospace; font-size: 10px; color: var(--accent);">STABLE_V3</div>
+        <div id="clock" style="font-family:monospace; font-size:12px; color:var(--accent)">00:00:00</div>
     </header>
 
-    <div class="wrapper">
-        <iframe src="https://eduvibe-vibrant.pages.dev/"></iframe>
-    </div>
+    <main class="M0x">
+        <iframe id="portalFrame" src="https://eduvibe-vibrant.pages.dev/"></iframe>
+        
+        <div style="position:absolute;bottom:0;width:100%;height:40px;background:var(--surface);display:flex;align-items:center;justify-content:center;border-top:1px solid var(--border);z-index:999">
+            <div style="font-size:10px;color:#484f58;font-family:monospace">[ ARCHITECT: DEVANSH SHARMA ]</div>
+        </div>
+    </main>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById('sideMenu').classList.toggle('active');
+        // 1. Loader removal
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('_L0x').style.display = 'none';
+            }, 1200);
+        };
+
+        // 2. Unlock Portal (The Magic)
+        function unlock() {
+            document.getElementById('_PX').style.display = 'none';
+            // Jab user click karega, hum iframe ko thoda sa zoom ya shift karenge
+            // Taaki agar beech mein popup ho to wo side mein dikhe ya cut jaye
+            const frame = document.getElementById('portalFrame');
+            frame.style.transform = "scale(1.02)"; // Thoda bada kar diya taaki corners hide ho jayein
         }
+
+        // 3. Sidebar Toggle
+        function toggleMenu() {
+            document.getElementById('_SX').classList.toggle('active');
+        }
+
+        // 4. Real-time Clock
+        setInterval(() => {
+            const d = new Date();
+            document.getElementById('clock').innerText = d.toLocaleTimeString();
+        }, 1000);
     </script>
 </body>
 </html>
