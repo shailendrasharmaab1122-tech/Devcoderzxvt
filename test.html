@@ -2,144 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>DevCoderZ | Delta_Secure_v3</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevCoderz | Smart Lecture Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
-        :root {
-            --bg: #010409;
-            --surface: #0f172a;
-            --accent: #38bdf8;
-            --text: #f1f5f9;
-            --border: #30363d;
-        }
-
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: var(--bg); color: var(--text);
-            font-family: 'Segoe UI', sans-serif; overflow: hidden;
-        }
-
-        /* Loading Screen */
-        #_L0x {
-            position: fixed; inset: 0; background: var(--bg);
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; z-index: 99999; color: var(--accent);
-            font-family: monospace; gap: 12px; transition: 0.5s;
-        }
-        ._b { width: 120px; height: 2px; background: #161b22; position: relative; }
-        ._b::after { 
-            content: ''; position: absolute; width: 40%; height: 100%; 
-            background: var(--accent); animation: L 0.8s infinite; 
-        }
-        @keyframes L { 0% { left: 0 } 50% { left: 60% } 100% { left: 0 } }
-
-        /* Secure Popup */
-        .P0x {
-            position: fixed; inset: 0; background: rgba(1,4,9,0.98);
-            backdrop-filter: blur(20px); z-index: 90000;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .PC0x {
-            background: var(--surface); width: 90%; max-width: 400px;
-            padding: 40px; border-radius: 15px; border: 1px solid var(--border);
-            border-top: 4px solid var(--accent); text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        /* Header & UI */
-        header {
-            height: 60px; background: var(--surface);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; border-bottom: 1px solid var(--border);
-            position: relative; z-index: 1000;
-        }
-        .logo { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 900; font-size: 1.2rem; }
-
-        .M0x {
-            width: 100%; height: calc(100vh - 60px);
-            overflow: hidden; position: relative; background: #000;
-        }
-        
-        /* Iframe styling with Bypass Attributes */
-        iframe {
-            width: 100%; height: 100%; border: none;
-            position: absolute; top: 0; left: 0;
-            background: #fff; /* Kuch sites white background mangti hain load hone ke liye */
-        }
-
-        /* Sidebar */
-        .SD0x {
-            position: fixed; left: -320px; width: 280px; height: 100%;
-            background: #0d1117; transition: 0.4s cubic-bezier(0.4,0,0.2,1);
-            z-index: 10000; padding: 30px 20px; border-right: 1px solid var(--border);
-        }
-        .SD0x.active { left: 0; }
-        .ADMIN_BOX { background: rgba(56,189,248,0.03); padding: 15px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.1); margin-bottom: 25px; }
-        .IT0x { padding: 14px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #8b949e; text-decoration: none; font-size: 14px; }
-        .IT0x:hover { background: #161b22; color: var(--accent); }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
+        body { background: #0f172a; color: white; }
     </style>
 </head>
-<body>
+<body class="p-5">
 
-    <div id="_L0x"><div>BOOTING_CORE_...</div><div class="_b"></div></div>
-
-    <div id="_PX" class="P0x">
-        <div class="PC0x">
-            <h2 style="color:#fff;margin-bottom:10px">DevCoderZ 2.0</h2>
-            <p style="font-size:13px;color:#8b949e;margin-bottom:30px">
-                DeltaStudy Protocol Initialized.<br>Bypassing server restrictions...
-            </p>
-            <button onclick="unlock()" style="width:100%; padding:15px; background:var(--accent); border:none; border-radius:8px; color:#010409; font-weight:bold; cursor:pointer; font-size:16px;">
-                UNLOCK & ENTER
-            </button>
-            <div style="margin-top:20px;">
-                <a href="https://t.me/+8tZSJ5FyTXVjM2M1" target="_blank" style="color:var(--accent); text-decoration:none; font-size:11px; opacity:0.6;">JOIN TELEGRAM</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="_SX" class="SD0x">
-        <div class="ADMIN_BOX">
-            <div style="font-size:14px;font-weight:800;color:#fff"><i class="fas fa-crown" style="color:#fbbf24;"></i> Devansh Sharma</div>
-            <div style="font-size:10px;color:var(--accent);">FOUNDER</div>
-            <div style="margin-top:10px; font-size:14px;font-weight:800;color:#fff"><i class="fas fa-user-shield"></i> Assault Decoder</div>
-            <div style="font-size:10px;color:var(--accent);">CO-FOUNDER</div>
-        </div>
-        <div class="IT0x" onclick="location.reload()"><i class="fas fa-sync-alt"></i> REBOOT</div>
-        <div class="IT0x" onclick="toggleMenu()"><i class="fas fa-times"></i> CLOSE</div>
-    </div>
-
-    <header>
-        <i class="fas fa-bars" style="cursor:pointer;color:#8b949e" onclick="toggleMenu()"></i>
-        <div class="logo">&lt;DevCoderZ/&gt;</div>
-        <div id="clock" style="font-family:monospace; font-size:11px; color:var(--accent)">00:00:00</div>
+    <header class="mb-10 text-center">
+        <h1 class="text-4xl font-bold text-blue-500">DevCoderz Portal</h1>
+        <p class="text-gray-400">Class 11th & 12th - Auto Updated Lectures</p>
     </header>
 
-    <main class="M0x">
-        <iframe 
-            src="https://deltastudy.site/vibrant" 
-            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
-            referrerpolicy="no-referrer">
-        </iframe>
-        
-        <div style="position:absolute;bottom:0;width:100%;height:40px;background:var(--surface);display:flex;align-items:center;justify-content:center;border-top:1px solid var(--border);z-index:999">
-            <div style="font-size:10px;color:#484f58;font-family:monospace">[ SYSTEM: STABLE_DELTA_v3 ]</div>
-        </div>
-    </main>
+    <div class="flex justify-center gap-4 mb-8">
+        <button onclick="loadLectures('11')" class="bg-blue-600 px-6 py-2 rounded-full hover:bg-blue-700 transition">Class 11th</button>
+        <button onclick="loadLectures('12')" class="bg-purple-600 px-6 py-2 rounded-full hover:bg-purple-700 transition">Class 12th</button>
+    </div>
+
+    <div id="lecture-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="text-center col-span-full text-gray-500">Select a class to load lectures...</div>
+    </div>
 
     <script>
-        window.onload = () => {
-            setTimeout(() => { 
-                document.getElementById('_L0x').style.opacity = '0';
-                setTimeout(() => { document.getElementById('_L0x').style.display = 'none'; }, 500);
-            }, 1000);
-        };
-        function unlock() { document.getElementById('_PX').style.display = 'none'; }
-        function toggleMenu() { document.getElementById('_SX').classList.toggle('active'); }
-        setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
-        }, 1000);
+        // API Configuration (Jo aapne share kiya)
+        const API_BASE = "https://vibrantacademykotaapi.akamai.net.in/v1/"; // Replace with actual endpoint
+        const IV_STRING = "eVo1cUdCOVRSS3Q1REZibGluUG9SZz09"; 
+        const MASTER_KEY = "g+MewM0jj7b1+puhl+draw==:ZmVkY2JhOTg3NjU0MzIxMA==";
+
+        async function loadLectures(classId) {
+            const container = document.getElementById('lecture-container');
+            container.innerHTML = '<div class="col-span-full text-center">Fetching latest data from server...</div>';
+
+            try {
+                // NOTE: Replace this URL with the actual endpoint you found in Network Tab
+                // Example: API_BASE + "get_content?class=" + classId
+                const response = await fetch(`${API_BASE}get_content?class=${classId}`);
+                const data = await response.json();
+
+                renderLectures(data);
+            } catch (error) {
+                container.innerHTML = `<div class="col-span-full text-red-400 text-center">Error: API Access Blocked (CORS). <br> <small>Use a Proxy or Local Server to fix this.</small></div>`;
+            }
+        }
+
+        function renderLectures(lectures) {
+            const container = document.getElementById('lecture-container');
+            container.innerHTML = '';
+
+            lectures.forEach(item => {
+                // Decryption logic if link is encrypted
+                let link = item.pdf_link || item.video_id;
+                if(item.is_pdf_encrypted === "1") {
+                    link = decryptContent(link, MASTER_KEY, IV_STRING);
+                }
+
+                const card = `
+                    <div class="glass p-5 rounded-2xl border border-gray-700 hover:border-blue-500 transition">
+                        <span class="text-xs text-blue-400 uppercase font-bold">${item.Exam || 'Lecture'}</span>
+                        <h3 class="text-xl font-semibold mt-2">${item.topic || 'Untitled Topic'}</h3>
+                        <p class="text-gray-400 text-sm mt-1">📅 ${item.date_and_time}</p>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button onclick="openPlayer('${link}')" class="bg-green-600 flex-1 py-2 rounded-lg text-sm font-bold">Watch Video</button>
+                            <button class="bg-gray-700 px-3 py-2 rounded-lg">📄 PDF</button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function decryptContent(cipherText, key, iv) {
+            // AES Decryption Logic goes here using CryptoJS
+            // Unka custom logic yahan paste karna hoga
+            return "decrypted_link_here"; 
+        }
+
+        function openPlayer(url) {
+            alert("Opening Stream: " + url);
+            // Integrate your HLS Player here
+        }
     </script>
 </body>
 </html>
