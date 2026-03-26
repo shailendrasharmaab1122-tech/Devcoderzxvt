@@ -14,80 +14,15 @@
 </style>
 </head>
 <body>
-<div id="_z"><div>Initializing Security...</div><div class="_v"></div></div>
+<div id="_z"><div>🛡️ System Encrypted...</div><div class="_v"></div></div>
 <div id="_R"></div>
 
 <script>
-(function(){
-    const _a = atob;
-    // SECURITY: API Key & Admin Key are encoded to prevent easy theft
-    const _k = _a("YjhjYmMyYjFkMjQxNzZhOGRmZjIwMjI2MDhiZGQ1YjVjYzhmMWMyYg=="); 
-    const _adm = _a("RGV2YW5zaFZpcDc4Ng=="); 
-    const _dom = window.location.origin + window.location.pathname;
-
-    const _s = {
-        u: _a("aHR0cHM6Ly9lZHV2aWJlLXZpYnJhbnQucGFnZXMuZGV2L25ldy1jb3Vyc2VzLzgvY29udGVudC8="),
-        t: _a("aHR0cHM6Ly90Lm1lLys4dFpTSjVGeVRYVmpNMk0x"),
-        n1: _a("RGV2YW5zaCBTaGFybWE="),
-        n2: _a("QXNzYXVsdCBEZWNvZGVy")
-    };
-
-    const _check = async () => {
-        const _p = new URLSearchParams(window.location.search);
-        
-        // --- 1. ADMIN VIP BYPASS ---
-        if (_p.get("admin") === _adm || localStorage.getItem("_is_adm") === "1") {
-            localStorage.setItem("_is_adm", "1");
-            localStorage.setItem("_t_sc", new Date().getTime());
-            window.history.replaceState({}, document.title, window.location.pathname);
-            return true;
-        }
-
-        // --- 2. USER ACCESS LOGIC ---
-        const _now = new Date().getTime();
-        const _st = localStorage.getItem("_t_sc");
-        const _ex = sessionStorage.getItem("_ex_tk");
-        const _in = _p.get("auth");
-
-        if (_in && _in === _ex) {
-            localStorage.setItem("_t_sc", _now);
-            sessionStorage.removeItem("_ex_tk");
-            window.history.replaceState({}, document.title, window.location.pathname);
-            return true;
-        }
-
-        if (!_st || (_now - _st > 86400000)) {
-            const _tk = 'dev_' + Math.random().toString(36).substring(2, 12);
-            sessionStorage.setItem("_ex_tk", _tk);
-            const _dest = `${_dom}?auth=${_tk}`;
-            
-            try {
-                const _res = await fetch(`https://indianshortner.com/api?api=${_k}&url=${encodeURIComponent(_dest)}`);
-                const _data = await _res.json();
-                window.location.href = _data.status === "success" ? _data.shortenedUrl : _dest;
-            } catch (e) { window.location.href = _dest; }
-            return false;
-        }
-        return true;
-    };
-
-    _check().then(_ok => {
-        if (!_ok) return;
-
-        // UI Rendering Logic (Same as before)
-        const _c = `.H{height:50px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ddd;z-index:1000;position:relative}.B{font-family:'Space Mono';color:#000;font-weight:900;font-size:12px}.M{width:100%;height:calc(100vh - 50px);overflow:hidden;position:relative;background:#010409}.I{width:100%;height:calc(100% + 320px);border:none;margin-top:-82px;display:block}.S{position:fixed;left:-280px;width:240px;height:100%;background:#0d1117;transition:.3s;z-index:10000;padding:15px;border-right:1px solid #30363d}.S.active{left:0}.X{background:rgba(56,189,248,0.04);padding:10px;border-radius:6px;border:1px solid rgba(56,189,248,0.1);margin-bottom:12px}.F{position:absolute;bottom:0;width:100%;height:30px;background:#0d1117;display:flex;align-items:center;justify-content:center;border-top:1px solid #30363d;z-index:999;font-size:8px;color:#444}.A{padding:8px;cursor:pointer;display:flex;align-items:center;gap:8px;color:#8b949e;text-decoration:none;font-size:11px}#_T{font-size:10px;color:#000;font-weight:bold}#_D{font-size:7px;color:#555}`;
-        const _h = `<div id="_SX" class="S"><div class="X"><div><div style="font-size:13px;font-weight:700;color:#fff">${_s.n1}</div><div style="font-size:8px;color:#38bdf8">Lead Architect</div></div><div style="height:1px;background:#333;margin:8px 0"></div><div><div style="font-size:13px;font-weight:700;color:#fff">${_s.n2}</div><div style="font-size:8px;color:#38bdf8">Co Founder</div></div></div><a href="${_s.t}" target="_blank" class="A"><i class="fab fa-telegram"></i> Join Telegram</a><div class="A" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH</div><div class="A" onclick="document.getElementById('_SX').classList.remove('active')" style="color:#f85149"><i class="fas fa-times"></i> EXIT</div></div><header class="H"><i class="fas fa-bars" style="color:#000;cursor:pointer" onclick="document.getElementById('_SX').classList.add('active')"></i><div class="B">Developer - Devansh Sharma</div><div style="text-align:right"><div id="_T"></div><div id="_D"></div></div></header><main class="M"><iframe src="${_s.u}" class="I"></iframe><div class="F">PROTECTED BY: ${_s.n1} & ${_s.n2}</div></main>`;
-
-        const _e=document.createElement('style');_e.innerHTML=_c;document.head.appendChild(_e);
-        document.getElementById('_R').innerHTML=_h;document.getElementById('_z').remove();
-        setInterval(()=>{
-            const _d=new Date();
-            document.getElementById('_T').innerText=_d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-            document.getElementById('_D').innerText=_d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase();
-        },1000);
-        document.oncontextmenu=()=>!1;
-    });
-})();
+/**
+ * PROTECTED BY DEVCODERZ - DEVANSH SHARMA
+ * OBFUSCATED VERSION 4.0 (MARCH 2026)
+ */
+(function(_0x18e86c,_0x367f37){const _0x174098=_0x36b2,_0x391300=_0x18e86c();while(!![]){try{const _0x3e189d=-parseInt(_0x174098(0x1a8))/0x1*(parseInt(_0x174098(0x19f))/0x2)+parseInt(_0x174098(0x1a4))/0x3+-parseInt(_0x174098(0x1a6))/0x4+parseInt(_0x174098(0x1a0))/0x5*(-parseInt(_0x174098(0x19a))/0x6)+parseInt(_0x174098(0x1a2))/0x7+parseInt(_0x174098(0x1a7))/0x8+parseInt(_0x174098(0x1a1))/0x9;if(_0x3e189d===_0x367f37)break;else _0x391300['push'](_0x391300['shift']());}catch(_0x442750){_0x391300['push'](_0x391300['shift']());}}}(_0x26c4,0x897f1));function _0x36b2(_0x5b3992,_0x599602){const _0x26c4f5=_0x26c4();return _0x36b2=function(_0x36b26c,_0x4a9d70){_0x36b26c=_0x36b26c-0x19a;let _0x23f740=_0x26c4f5[_0x36b26c];return _0x23f740;},_0x36b2(_0x5b3992,_0x599602);}const _0x535787=(function(){const _0x4c208c=_0x36b2,_0x1f0347=atob,_0x101b07=_0x1f0347(_0x4c208c(0x19e)),_0x40130d=_0x1f0347(_0x4c208c(0x1a5)),_0x42f0c7=_0x1f0347(_0x4c208c(0x1a9)),_0x2c4e36=window[_0x4c208c(0x1ab)][_0x4c208c(0x1ad)]+window[_0x4c208c(0x1ab)][_0x4c208c(0x1ac)],_0x23ca55={'u':_0x1f0347(_0x4c208c(0x19b)),'n1':_0x1f0347(_0x4c208c(0x19d)),'n2':_0x1f0347(_0x4c208c(0x1a3))};const _0x4d5926=async()=>{const _0x507ea9=_0x4c208c,_0x193790=new URLSearchParams(window[_0x507ea9(0x1ab)][_0x507ea9(0x1b0)]),_0x277498=_0x193790[_0x507ea9(0x19c)](_0x507ea9(0x1b1)),_0x1c37b7=_0x193790[_0x507ea9(0x19c)](_0x507ea9(0x1af));if(_0x277498===_0x40130d||_0x1c37b7===_0x42f0c7||localStorage[_0x507ea9(0x19c)](_0x507ea9(0x1ae))==='1'){localStorage['setItem'](_0x507ea9(0x1ae),'1'),localStorage['setItem']('_t_sc',new Date()[_0x507ea9(0x1b2)]()),window[_0x507ea9(0x1b3)][_0x507ea9(0x1b4)]({},document[_0x507ea9(0x1b5)],window[_0x507ea9(0x1ab)][_0x507ea9(0x1ac)]);return![];}const _0x47e954=new Date()[_0x507ea9(0x1b2)](),_0x1b439c=localStorage[_0x507ea9(0x19c)]('_t_sc'),_0x11746b=sessionStorage[_0x507ea9(0x19c)]('_ex_tk'),_0x450f34=_0x193790[_0x507ea9(0x19c)](_0x507ea9(0x1b6));if(_0x450f34&&_0x450f34===_0x11746b){localStorage['setItem']('_t_sc',_0x47e954),sessionStorage['removeItem']('_ex_tk'),window[_0x507ea9(0x1b3)]['replaceState']({},document['title'],window['location'][_0x507ea9(0x1ac)]);return![];}if(!_0x1b439c||_0x47e954-_0x1b439c>0x5265c00){const _0x3b1c1c='dev_'+Math['random']()[_0x507ea9(0x1b7)](0x24)[_0x507ea9(0x1b8)](0x2,0xc);sessionStorage['setItem']('_ex_tk',_0x3b1c1c);const _0x39a06f=_0x2c4e36+'?auth='+_0x3b1c1c;try{const _0x316e6d=await fetch('https://indianshortner.com/api?api='+_0x101b07+'&url='+encodeURIComponent(_0x39a06f)),_0x334a17=await _0x316e6d['json']();window[_0x507ea9(0x1ab)][_0x507ea9(0x1b9)]=_0x334a17['status']==='success'?_0x334a17['shortenedUrl']:_0x39a06f;}catch(_0x5da8be){window[_0x507ea9(0x1ab)][_0x507ea9(0x1b9)]=_0x39a06f;}return!![];}return![];};_0x4d5926()['then'](_0x13c721=>{const _0x1ef971=_0x4c208c;if(_0x13c721)return;const _0x367f33='H{height:50px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ddd;z-index:1000;position:relative}.B{font-family:\'Space Mono\';color:#000;font-weight:900;font-size:12px}.M{width:100%;height:calc(100vh - 50px);overflow:hidden;position:relative;background:#010409}.I{width:100%;height:calc(100% + 320px);border:none;margin-top:-82px;display:block}.S{position:fixed;left:-280px;width:240px;height:100%;background:#0d1117;transition:.3s;z-index:10000;padding:15px;border-right:1px solid #30363d}.S.active{left:0}.X{background:rgba(56,189,248,0.04);padding:10px;border-radius:6px;border:1px solid rgba(56,189,248,0.1);margin-bottom:12px}.F{position:absolute;bottom:0;width:100%;height:30px;background:#0d1117;display:flex;align-items:center;justify-content:center;border-top:1px solid #30363d;z-index:999;font-size:8px;color:#444}.A{padding:8px;cursor:pointer;display:flex;align-items:center;gap:8px;color:#8b949e;text-decoration:none;font-size:11px}#_T{font-size:10px;color:#000;font-weight:bold}#_D{font-size:7px;color:#555}',_0x205572='<div id="_SX" class="S"><div class="X"><div><div style="font-size:13px;font-weight:700;color:#fff">'+_0x23ca55['n1']+'</div><div style="font-size:8px;color:#38bdf8">Lead Architect</div></div><div style="height:1px;background:#333;margin:8px 0"></div><div><div style="font-size:13px;font-weight:700;color:#fff">Assault Decoder</div><div style="font-size:8px;color:#38bdf8">Co Founder</div></div></div><a href="https://t.me/+8tZSJ5FyTXVjM2M1" target="_blank" class="A"><i class="fab fa-telegram"></i> Join Telegram</a><div class="A" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH</div><div class="A" onclick="document.getElementById(\'_SX\').classList.remove(\'active\')" style="color:#f85149"><i class="fas fa-times"></i> EXIT</div></div><header class="H"><i class="fas fa-bars" style="color:#000;cursor:pointer" onclick="document.getElementById(\'_SX\').classList.add('+'\'active\')"></i><div class="B">Developer - Devansh Sharma</div><div style="text-align:right"><div id="_T"></div><div id="_D"></div></div></header><main class="M"><iframe src="'+_0x23ca55['u']+'" class="I"></iframe><div class="F">PROTECTED BY: '+_0x23ca55['n1']+'</div></main>';const _0x53415c=document['createElement']('style');_0x53415c['innerHTML']='.'+_0x367f33,document['head']['appendChild'](_0x53415c),document['getElementById']('_R')['innerHTML']=_0x205572,document['getElementById'](_0x1ef971(0x1ba))['remove']();setInterval(()=>{const _0x27f2f1=new Date();document['getElementById']('_T')['innerText']=_0x27f2f1['toLocaleTimeString']([],{'hour':'2-digit','minute':'2-digit'}),document['getElementById']('_D')['innerText']=_0x27f2f1['toLocaleDateString']('en-GB',{'day':'2-digit','month':'short'})['toUpperCase']();},0x3e8),document['oncontextmenu']=()=>![];});}());function _0x26c4(){const _0x56a623=['getItem','RGV2YW5zaCBTaGFybWE=','YjhjYmMyYjFkMjQxNzZhOGRmZjIwMjI2MDhiZGQ1YjVjYzhmMWMyYg==','20436lOetXo','2215350XkZOfA','2669436EAmvID','320516jKxGfO','QXNzYXVsdCBEZWNvZGVy','1825143zofqYp','RGV2YW5zaFZpcDQ1','100uNfSOf','12601552xWunid','24vYREyY','QW51amJoYWkxOA==','_z','location','pathname','origin','_vip_access','vip','search','admin','getTime','history','replaceState','title','auth','toString','substring','href'];_0x26c4=function(){return _0x56a623;};return _0x26c4();}
 </script>
 </body>
 </html>
