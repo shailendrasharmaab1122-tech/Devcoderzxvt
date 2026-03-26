@@ -8,12 +8,14 @@
 <style>
     body,html{margin:0;padding:0;width:100%;height:100%;background:#010409;font-family:'Segoe UI',sans-serif;overflow:hidden;color:#fff}
     #_gate{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,#0d1117 0%,#010409 100%);display:flex;align-items:center;justify-content:center;z-index:100000}
-    .box{background:#0d1117;padding:30px;border-radius:12px;border:1px solid #30363d;text-align:center;width:90%;max-width:400px;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-    h2{color:#38bdf8;margin-bottom:20px;font-size:1.5rem}
-    .btn{display:block;width:100%;padding:12px;margin:10px 0;border:none;border-radius:6px;cursor:pointer;font-weight:bold;transition:0.3s;font-size:16px}
-    .btn-srv{background:#38bdf8;color:#000}.btn-srv:hover{background:#7dd3fc}
+    .box{background:#0d1117;padding:30px;border-radius:12px;border:1px solid #30363d;text-align:center;width:90%;max-width:350px;box-shadow:0 10px 40px rgba(0,0,0,0.8)}
+    h2{color:#38bdf8;margin-bottom:20px;letter-spacing:1px}
+    .btn{display:block;width:100%;padding:14px;margin:10px 0;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:0.3s;font-size:15px;text-transform:uppercase}
+    .btn-srv{background:#38bdf8;color:#000}.btn-srv:hover{background:#7dd3fc;transform:scale(1.02)}
     .btn-adm{background:#161b22;color:#8b949e;border:1px solid #30363d}.btn-adm:hover{color:#fff;border-color:#38bdf8}
-    input{width:100%;padding:10px;margin-top:10px;background:#010409;border:1px solid #30363d;border-radius:6px;color:#38bdf8;text-align:center;display:none}
+    .btn-login{background:#22c55e;color:#fff;margin-top:10px;display:none}
+    input{width:100%;padding:12px;margin-top:10px;background:#010409;border:1px solid #30363d;border-radius:8px;color:#38bdf8;text-align:center;display:none;outline:none;box-sizing:border-box}
+    input:focus{border-color:#38bdf8}
     #_z{position:fixed;top:0;left:0;width:100%;height:100%;background:#010409;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:99999;color:#38bdf8}
     ._v{width:100px;height:2px;background:#161b22;position:relative;margin-top:10px}
     ._v::after{content:'';position:absolute;width:40%;height:100%;background:#38bdf8;animation:L .8s infinite}
@@ -24,16 +26,19 @@
 
 <div id="_gate">
     <div class="box">
-        <i class="fas fa-shield-alt" style="font-size:40px;color:#38bdf8;margin-bottom:15px"></i>
-        <h2>Access Control</h2>
-        <button class="btn btn-srv" onclick="_startSrv()">🌐 SERVER 1 (Ads)</button>
-        <button class="btn btn-adm" id="admBtn" onclick="_showInput()">🔑 ADMIN LOGIN</button>
-        <input type="password" id="admKey" placeholder="Enter Secret Key..." oninput="_verifyAdm()">
-        <p style="font-size:10px;color:#444;margin-top:15px">DEVCODERZ SECURITY SYSTEM v4.5</p>
+        <i class="fas fa-user-shield" style="font-size:50px;color:#38bdf8;margin-bottom:15px"></i>
+        <h2>SELECT ACCESS</h2>
+        <button class="btn btn-srv" onclick="_startSrv()"><i class="fas fa-globe"></i> SERVER 1</button>
+        <button class="btn btn-adm" id="admBtn" onclick="_showInput()"><i class="fas fa-key"></i> ADMIN ENTER</button>
+        
+        <input type="password" id="admKey" placeholder="Enter Admin Key...">
+        <button class="btn btn-login" id="loginBtn" onclick="_verifyAdm()">VERIFY & ENTER</button>
+        
+        <p style="font-size:10px;color:#444;margin-top:20px;letter-spacing:2px">DEVCODERZ SECURITY</p>
     </div>
 </div>
 
-<div id="_z"><div>Initializing...</div><div class="_v"></div></div>
+<div id="_z"><div>🛡️ DECRYPTING...</div><div class="_v"></div></div>
 <div id="_R"></div>
 
 <script>
@@ -51,8 +56,8 @@
 
     window._showInput = () => {
         document.getElementById('admKey').style.display = 'block';
+        document.getElementById('loginBtn').style.display = 'block';
         document.getElementById('admBtn').style.display = 'none';
-        document.getElementById('admKey').focus();
     };
 
     window._verifyAdm = () => {
@@ -61,6 +66,9 @@
             localStorage.setItem("_vip_access", "1");
             localStorage.setItem("_t_sc", new Date().getTime());
             location.reload();
+        } else {
+            alert("Invalid Admin Key!");
+            document.getElementById('admKey').value = "";
         }
     };
 
