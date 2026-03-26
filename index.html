@@ -3,99 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>DevCoderZ | Modified System</title>
+    <title>System_v3_Protected</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#010409}
-        #_L0x{position:fixed;top:0;left:0;width:100%;height:100%;background:#010409;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;color:#38bdf8;font-family:monospace;gap:12px}
-        ._b{width:120px;height:2px;background:#161b22;position:relative}
-        ._b::after{content:'';position:absolute;width:40%;height:100%;background:#38bdf8;animation:L 0.8s infinite}
-        @keyframes L{0%{left:0}50%{left:60%}100%{left:0}}
-    </style>
+    <style>body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#010409}#_z0x{position:fixed;top:0;left:0;width:100%;height:100%;background:#010409;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;color:#38bdf8;font-family:monospace;gap:12px}._v{width:120px;height:2px;background:#161b22;position:relative}._v::after{content:'';position:absolute;width:40%;height:100%;background:#38bdf8;animation:L 0.8s infinite}@keyframes L{0%{left:0}50%{left:60%}100%{left:0}}</style>
 </head>
 <body>
-    <div id="_L0x"><div>INITIALIZING_SECURE_FRAME...</div><div class="_b"></div></div>
-    <div id="_D0x_ROOT"></div>
-
+    <div id="_z0x"><div>SECURE_BOOT...</div><div class="_v"></div></div>
+    <div id="_D_ROOT"></div>
     <script>
-        (function() {
-            const _config = {
-                target_url: "https://eduvibe-vibrant.pages.dev/new-courses/8/content/", // Iframe Link Updated
-                tg_link: "https://t.me/+8tZSJ5FyTXVjM2M1"
-            };
-
-            const _css = `
-                :root{--bg:#010409;--panel:#0d1117;--accent:#38bdf8;--text:#f1f5f9;--border:#30363d}
-                #_D0x_ROOT{font-family:'Poppins',sans-serif;color:var(--text)}
-                .H0x{height:60px;background:var(--panel);display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--border);position:relative;z-index:1000}
-                .B0x{font-family:'Space Mono';color:var(--accent);font-weight:900;letter-spacing:1px}
-                .M0x{width:100%;height:calc(100vh - 60px);overflow:hidden;position:relative;background:#fff}
-                
-                /* Iframe Fix & Trim Logic */
-                .I0x{width:100%;height:calc(100% + 150px);border:none;margin-top:-65px;display:block}
-                
-                /* Sidebar/Menu Credits */
-                .SD0x{position:fixed;left:-320px;width:280px;height:100%;background:var(--panel);transition:0.4s ease;z-index:10000;padding:25px;border-right:1px solid var(--border)}
-                .SD0x.active{left:0}
-                .CREDIT_CARD{background:rgba(56,189,248,0.05);padding:15px;border-radius:8px;border:1px solid rgba(56,189,248,0.2);margin-bottom:20px}
-                
-                /* Trimmed Footer Credits */
-                .F0x{position:absolute;bottom:0;width:100%;height:45px;background:var(--panel);display:flex;align-items:center;justify-content:center;border-top:1px solid var(--border);z-index:999;font-family:'Space Mono';font-size:11px}
-                .my-name{color:var(--accent);font-weight:bold;margin:0 5px}
-                
-                .IT0x{padding:12px;margin-bottom:5px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:10px;color:#8b949e;text-decoration:none;font-size:13px;transition:0.2s}
-                .IT0x:hover{background:#161b22;color:var(--accent)}
-            `;
-
-            const _html = `
-                <div id="_SX" class="SD0x">
-                    <div style="font-size:10px;color:var(--accent);margin-bottom:15px">// SYSTEM_ACCESS_GRANTED</div>
-                    <div class="CREDIT_CARD">
-                        <div style="margin-bottom:10px">
-                            <div style="font-size:14px;font-weight:700;color:#fff"><i class="fas fa-code" style="color:var(--accent)"></i> Devansh Sharma</div>
-                            <div style="font-size:9px;color:#8b949e">MAIN ARCHITECT</div>
-                        </div>
-                        <div style="height:1px;background:var(--border);margin:10px 0"></div>
-                        <div>
-                            <div style="font-size:14px;font-weight:700;color:#fff"><i class="fas fa-terminal" style="color:var(--accent)"></i> Assault Decoder</div>
-                            <div style="font-size:9px;color:#8b949e">CORE DECODER</div>
-                        </div>
-                    </div>
-                    <a href="${_config.tg_link}" target="_blank" class="IT0x"><i class="fab fa-telegram"></i> TELEGRAM CHANNEL</a>
-                    <div class="IT0x" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH PAGE</div>
-                    <div class="IT0x" onclick="document.getElementById('_SX').classList.remove('active')" style="color:#f85149;margin-top:20px"><i class="fas fa-times"></i> CLOSE MENU</div>
-                </div>
-
-                <header class="H0x">
-                    <i class="fas fa-bars" style="cursor:pointer;color:var(--accent);font-size:20px" onclick="document.getElementById('_SX').classList.add('active')"></i>
-                    <div class="B0x">DEVCODERZ_V3</div>
-                    <div style="text-align:right">
-                        <div id="_TX" style="font-size:12px;font-weight:bold">00:00</div>
-                        <div id="_DX" style="font-size:8px;color:var(--accent)">FETCHING...</div>
-                    </div>
-                </header>
-
-                <main class="M0x">
-                    <iframe src="${_config.target_url}" class="I0x"></iframe>
-                    
-                    <div class="F0x">
-                        BY <span class="my-name">DEVANSH SHARMA</span> & <span class="my-name">ASSAULT DECODER</span>
-                    </div>
-                </main>
-            `;
-
-            setTimeout(() => {
-                const s = document.createElement('style'); s.innerHTML = _css; document.head.appendChild(s);
-                document.getElementById('_D0x_ROOT').innerHTML = _html;
-                document.getElementById('_L0x').remove();
-            }, 1200);
-
-            setInterval(() => {
-                const d = new Date();
-                document.getElementById('_TX').innerText = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-                document.getElementById('_DX').innerText = d.toLocaleDateString('en-GB', {day:'2-digit', month:'short'}).toUpperCase();
-            }, 1000);
-        })();
+        (function(_0x1,_0x2){const _0x3=window;const _0x4=atob;const _0x5={_u:_0x4("aHR0cHM6Ly9lZHV2aWJlLXZpYnJhbnQucGFnZXMuZGV2L25ldy1jb3Vyc2VzLzgvY29udGVudC8="),_t:_0x4("aHR0cHM6Ly90Lm1lLys4dFpTSjVGeVRYVmpNMk0x"),_n1:_0x4("RGV2YW5zaCBTaGFybWE="),_n2:_0x4("QXNzYXVsdCBEZWNvZGVy")};const _0x6=`.H0x{height:60px;background:#0d1117;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #30363d;position:relative;z-index:1000}.B0x{font-family:'Space Mono';color:#38bdf8;font-weight:900;letter-spacing:1px}.M0x{width:100%;height:calc(100vh - 60px);overflow:hidden;position:relative;background:#fff}.I0x{width:100%;height:calc(100% + 150px);border:none;margin-top:-65px;display:block}.SD0x{position:fixed;left:-320px;width:280px;height:100%;background:#0d1117;transition:0.4s ease;z-index:10000;padding:25px;border-right:1px solid #30363d}.SD0x.active{left:0}.C_BOX{background:rgba(56,189,248,0.05);padding:15px;border-radius:8px;border:1px solid rgba(56,189,248,0.2);margin-bottom:20px}.F0x{position:absolute;bottom:0;width:100%;height:45px;background:#0d1117;display:flex;align-items:center;justify-content:center;border-top:1px solid #30363d;z-index:999;font-family:'Space Mono';font-size:11px;color:#8b949e}.IT0x{padding:12px;margin-bottom:5px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:10px;color:#8b949e;text-decoration:none;font-size:13px}.T_W{text-align:right}#_T{font-size:12px;font-weight:700;color:#fff}#_D{font-size:8px;color:#38bdf8}`;const _0x7=`<div id="_SX" class="SD0x"><div class="C_BOX"><div style="margin-bottom:10px"><div style="font-size:14px;font-weight:700;color:#fff">${_0x5._n1}</div><div style="font-size:9px;color:#38bdf8">ARCHITECT</div></div><div style="height:1px;background:#30363d;margin:10px 0"></div><div><div style="font-size:14px;font-weight:700;color:#fff">${_0x5._n2}</div><div style="font-size:9px;color:#38bdf8">SYSTEM_DECODER</div></div></div><a href="${_0x5._t}" target="_blank" class="IT0x"><i class="fab fa-telegram"></i> NETWORK</a><div class="IT0x" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH</div><div class="IT0x" onclick="document.getElementById('_SX').classList.remove('active')" style="color:#f85149;margin-top:20px"><i class="fas fa-times"></i> EXIT</div></div><header class="H0x"><i class="fas fa-bars" style="cursor:pointer;color:#38bdf8;font-size:20px" onclick="document.getElementById('_SX').classList.add('active')"></i><div class="B0x">CORE_SYSTEM_v3</div><div class="T_W"><div id="_T">00:00</div><div id="_D">SYNCING...</div></div></header><main class="M0x"><iframe src="${_0x5._u}" class="I0x"></iframe><div class="F0x">SECURE_BY: <span style="color:#38bdf8;margin:0 5px">${_0x5._n1}</span> & <span style="color:#38bdf8;margin:0 5px">${_0x5._n2}</span></div></main>`;setTimeout(()=>{const _0x8=document.createElement('style');_0x8.innerHTML=_0x6;document.head.appendChild(_0x8);document.getElementById('_D_ROOT').innerHTML=_0x7;document.getElementById('_z0x').remove();},1200);setInterval(()=>{const _0x9=new Date();document.getElementById('_T').innerText=_0x9.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('_D').innerText=_0x9.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase();},1000);})(window,document);
     </script>
 </body>
 </html>
