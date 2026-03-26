@@ -1,116 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevCoderz | Smart Lecture Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-    <style>
-        body { background: #050811; color: #e2e8f0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .glass-nav { background: rgba(10, 15, 28, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid #1e293b; }
-        .video-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; transition: 0.3s; }
-        .video-card:hover { border-color: #3b82f6; transform: translateY(-3px); }
-        
-        /* Pop-up aur Watermark Hider Logic */
-        #watermark, .edu-popup, .modal-overlay, #inject_idm_text_selection {
-            display: none !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>DevCoderZ X Vibrant Academy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#010409}
+    #_z{position:fixed;top:0;left:0;width:100%;height:100%;background:#010409;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;color:#38bdf8;font-family:monospace;gap:12px}
+    ._v{width:100px;height:2px;background:#161b22;position:relative}
+    ._v::after{content:'';position:absolute;width:40%;height:100%;background:#38bdf8;animation:L .8s infinite}
+    @keyframes L{0%{left:0}50%{left:60%}100%{left:0}}
+</style>
 </head>
 <body>
+<div id="_z"><div>System Loading...</div><div class="_v"></div></div>
+<div id="_R"></div>
 
-    <nav class="glass-nav sticky top-0 z-50 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-black tracking-tighter text-blue-500">DEVCODERZ <span class="text-[10px] text-white font-mono">X VIBRANT</span></h1>
-            <div class="flex gap-2">
-                <button onclick="loadClass('11')" class="bg-blue-600/20 text-blue-400 border border-blue-600/30 px-3 py-1 rounded-full text-xs font-bold">Class 11</button>
-                <button onclick="loadClass('12')" class="bg-purple-600/20 text-purple-400 border border-purple-600/30 px-3 py-1 rounded-full text-xs font-bold">Class 12</button>
-            </div>
-        </div>
-    </nav>
+<script>
+(function(){
+    const a = atob;
+    // Configuration
+    const s = {
+        u: a("aHR0cHM6Ly9lZHV2aWJlLXZpYnJhbnQucGFnZXMuZGV2L25ldy1jb3Vyc2VzLzgvY29udGVudC8="),
+        t: a("aHR0cHM6Ly90Lm1lLys4dFpTSjVGeVRYVmpNMk0x"),
+        n1: a("RGV2YW5zaCBTaGFybWE="),
+        n2: a("QXNzYXVsdCBEZWNvZGVy")
+    };
 
-    <main class="container mx-auto p-4 max-w-5xl">
-        
-        <div id="player-container" class="hidden mb-8">
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-800 bg-black">
-                <video id="my-video" class="video-js vjs-big-play-centered w-full aspect-video" controls preload="auto" data-setup='{}'></video>
-                <button onclick="closePlayer()" class="absolute top-2 right-2 bg-red-600/80 text-white p-2 rounded-full text-xs z-10"><i class="fas fa-times"></i> Close</button>
-            </div>
-            <h2 id="current-title" class="mt-4 text-xl font-bold text-white"></h2>
-        </div>
+    // --- LINK SHORTENER LOGIC ---
+    const shortLinks = [
+        "https://link1.com/your_slug1", // Apne short links yahan daalo
+        "https://link2.com/your_slug2",
+        "https://link3.com/your_slug3"
+    ];
 
-        <div id="lecture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            </div>
+    const checkAccess = () => {
+        const now = new Date().getTime();
+        const lastAccess = localStorage.getItem("_dev_key_time");
+        const expiry = 24 * 60 * 60 * 1000; // 24 Hours
 
-    </main>
-
-    <footer class="mt-20 py-8 border-t border-gray-900 text-center">
-        <p class="text-gray-500 text-sm">© 2026 DevCoderz Project</p>
-        <p class="text-blue-500 font-bold text-xs uppercase mt-1">Developed by Devansh Sharma</p>
-        <p class="text-gray-600 text-[10px] mt-2 italic">Automated Sync Enabled for Class 11th & 12th</p>
-    </footer>
-
-    <script>
-        // Placeholder Data (Real data will come from your Proxy Server)
-        const sampleData = [
-            { id: "1", title: "Physics: Kinematics Lecture 01", date: "25 March 2026", class: "11", stream: "https://test-streams.mux.dev/x36xhzz/master.m3u8" },
-            { id: "2", title: "Maths: Quadratic Equations", date: "24 March 2026", class: "11", stream: "MASTER_M3U8_LINK_HERE" }
-        ];
-
-        function loadClass(classId) {
-            const grid = document.getElementById('lecture-grid');
-            grid.innerHTML = '<p class="col-span-full text-center py-10 opacity-50">Syncing with server...</p>';
-            
-            // Yahan fetch logic aayega (server.py se)
-            setTimeout(() => {
-                grid.innerHTML = '';
-                sampleData.forEach(lecture => {
-                    if(lecture.class === classId) {
-                        grid.innerHTML += `
-                            <div class="video-card p-4">
-                                <div class="bg-gray-800 aspect-video rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
-                                    <i class="fas fa-play text-gray-600 text-2xl"></i>
-                                    <span class="absolute bottom-2 right-2 bg-black/60 text-[10px] px-2 py-1 rounded">HLS</span>
-                                </div>
-                                <h3 class="font-bold text-sm leading-tight h-10 overflow-hidden">${lecture.title}</h3>
-                                <p class="text-[10px] text-gray-500 mt-1 uppercase">${lecture.date}</p>
-                                <button onclick="playLecture('${lecture.stream}', '${lecture.title}')" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl text-xs font-bold transition">WATCH LECTURE</button>
-                            </div>
-                        `;
-                    }
-                });
-            }, 800);
+        // Check if user just came back from shortener
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("auth")) {
+            localStorage.setItem("_dev_key_time", now);
+            window.history.replaceState({}, document.title, window.location.pathname);
+            return true;
         }
 
-        function playLecture(url, title) {
-            document.getElementById('player-container').classList.remove('hidden');
-            document.getElementById('current-title').innerText = title;
-            
-            const player = videojs('my-video');
-            player.src({ src: url, type: 'application/x-mpegURL' });
-            player.play();
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Check 24h validity
+        if (!lastAccess || (now - lastAccess > expiry)) {
+            const randomLink = shortLinks[Math.floor(Math.random() * shortLinks.length)];
+            // Redirect to shortener
+            // Note: Make sure your shortener redirects back to: yoursite.com/?auth=true
+            window.location.href = randomLink;
+            return false;
         }
+        return true;
+    };
 
-        function closePlayer() {
-            const player = videojs('my-video');
-            player.pause();
-            document.getElementById('player-container').classList.add('hidden');
-        }
+    if (!checkAccess()) return;
 
-        // Auto Load Class 11 on Start
-        window.onload = () => loadClass('11');
-    </script>
+    // --- UI RENDERING ---
+    const c = `.H{height:50px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ddd;z-index:1000;position:relative}.B{font-family:'Space Mono';color:#000;font-weight:900;font-size:12px}.M{width:100%;height:calc(100vh - 50px);overflow:hidden;position:relative;background:#010409}.I{width:100%;height:calc(100% + 320px);border:none;margin-top:-82px;display:block}.S{position:fixed;left:-280px;width:240px;height:100%;background:#0d1117;transition:.3s;z-index:10000;padding:15px;border-right:1px solid #30363d}.S.active{left:0}.X{background:rgba(56,189,248,0.04);padding:10px;border-radius:6px;border:1px solid rgba(56,189,248,0.1);margin-bottom:12px}.F{position:absolute;bottom:0;width:100%;height:30px;background:#0d1117;display:flex;align-items:center;justify-content:center;border-top:1px solid #30363d;z-index:999;font-size:8px;color:#444}.A{padding:8px;cursor:pointer;display:flex;align-items:center;gap:8px;color:#8b949e;text-decoration:none;font-size:11px}#_T{font-size:10px;color:#000;font-weight:bold}#_D{font-size:7px;color:#555}`,
+    h = `<div id="_SX" class="S"><div class="X"><div style="margin-bottom:8px"><div style="font-size:13px;font-weight:700;color:#fff">${s.n1}</div><div style="font-size:8px;color:#38bdf8">Lead Architect</div></div><div style="height:1px;background:#333;margin:8px 0"></div><div><div style="font-size:13px;font-weight:700;color:#fff">${s.n2}</div><div style="font-size:8px;color:#38bdf8">Co Founder</div></div></div><a href="${s.t}" target="_blank" class="A"><i class="fab fa-telegram"></i> Join Telegram</a><div class="A" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH</div><div class="A" onclick="document.getElementById('_SX').classList.remove('active')" style="color:#f85149"><i class="fas fa-times"></i> EXIT</div></div><header class="H"><i class="fas fa-bars" style="color:#000;cursor:pointer" onclick="document.getElementById('_SX').classList.add('active')"></i><div class="B">Developer - Devansh Sharma</div><div style="text-align:right"><div id="_T"></div><div id="_D"></div></div></header><main class="M"><iframe src="${s.u}" class="I"></iframe><div class="F">PROTECTED BY: ${s.n1} & ${s.n2}</div></main>`;
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    setTimeout(()=>{
+        const e=document.createElement('style');
+        e.innerHTML=c;
+        document.head.appendChild(e);
+        document.getElementById('_R').innerHTML=h;
+        document.getElementById('_z').remove();
+    },700);
+
+    setInterval(()=>{
+        const d=new Date();
+        document.getElementById('_T').innerText=d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+        document.getElementById('_D').innerText=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase();
+    },1000);
+
+    // Anti-Inspect
+    document.oncontextmenu=()=>!1;
+    document.onkeydown = (e) => {
+        if(e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i')) return false;
+    };
+})();
+</script>
 </body>
 </html>
