@@ -14,14 +14,14 @@
 </style>
 </head>
 <body>
-<div id="_z"><div>Connecting to API...</div><div class="_v"></div></div>
+<div id="_z"><div>Generating Unique Link...</div><div class="_v"></div></div>
 <div id="_R"></div>
 
 <script>
 (function(){
     const a = atob;
-    const API_KEY = "b8cbc2b1d24176a8dff2022608bdd5b5cc8f1c2b"; // Your IndianShortner API
-    const BASE_SITE = "https://devcoderz.vercel.app/"; // Your Site URL
+    const API_KEY = "b8cbc2b1d24176a8dff2022608bdd5b5cc8f1c2b"; 
+    const MY_DOMAIN = window.location.origin + window.location.pathname;
 
     const s = {
         u: a("aHR0cHM6Ly9lZHV2aWJlLXZpYnJhbnQucGFnZXMuZGV2L25ldy1jb3Vyc2VzLzgvY29udGVudC8="),
@@ -30,49 +30,51 @@
         n2: a("QXNzYXVsdCBEZWNvZGVy")
     };
 
-    // Aaj ka Secret Token
-    const getTodayToken = () => {
-        const d = new Date();
-        return btoa(d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + "DEV_PRO").substring(0, 10);
+    // 1. UNIQUE TOKEN GENERATOR (Har user ke liye alag)
+    const generateUniqueToken = () => {
+        return 'dev_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
     };
-    const currentToken = getTodayToken();
 
-    async function getShortLink(targetUrl) {
+    async function fetchShortLink(target) {
         try {
-            const response = await fetch(`https://indianshortner.com/api?api=${API_KEY}&url=${encodeURIComponent(targetUrl)}`);
-            const data = await response.json();
-            if(data.status === "success") {
-                return data.shortenedUrl;
-            } else {
-                // Fallback agar API fail ho jaye
-                return "https://indianshortner.com/shorten?url=" + encodeURIComponent(targetUrl);
-            }
-        } catch (e) {
-            return "https://indianshortner.com/shorten?url=" + encodeURIComponent(targetUrl);
-        }
+            const res = await fetch(`https://indianshortner.com/api?api=${API_KEY}&url=${encodeURIComponent(target)}`);
+            const data = await res.json();
+            return data.status === "success" ? data.shortenedUrl : null;
+        } catch (e) { return null; }
     }
 
     const checkAccess = async () => {
         const now = new Date().getTime();
-        const lastAccessTime = localStorage.getItem("_dev_key_time");
-        const lastSavedToken = localStorage.getItem("_dev_key_token");
+        const savedTime = localStorage.getItem("_dc_time");
         const expiry = 24 * 60 * 60 * 1000;
 
         const urlParams = new URLSearchParams(window.location.search);
+        const incomingAuth = urlParams.get("auth");
         
-        // Return from Shortener
-        if (urlParams.get("auth") === currentToken) {
-            localStorage.setItem("_dev_key_time", now);
-            localStorage.setItem("_dev_key_token", currentToken);
+        // Browser me temporary save kiya gaya token
+        const expectedToken = sessionStorage.getItem("_expected_token");
+
+        // Step A: Verification (User shortener se wapas aaya hai)
+        if (incomingAuth && incomingAuth === expectedToken) {
+            localStorage.setItem("_dc_time", now);
+            sessionStorage.removeItem("_expected_token"); // Use hone ke baad delete
             window.history.replaceState({}, document.title, window.location.pathname);
             return true;
         }
 
-        // Validate Session
-        if (!lastAccessTime || lastSavedToken !== currentToken || (now - lastAccessTime > expiry)) {
-            const finalDestination = `${BASE_SITE}?auth=${currentToken}`;
-            const shortLink = await getShortLink(finalDestination);
-            window.location.href = shortLink;
+        // Step B: Check 24h Session
+        if (!savedTime || (now - savedTime > expiry)) {
+            const newToken = generateUniqueToken();
+            sessionStorage.setItem("_expected_token", newToken); // Token ko browser session me save karo
+            
+            const dest = `${MY_DOMAIN}?auth=${newToken}`;
+            const shortLink = await fetchShortLink(dest);
+            
+            if (shortLink) {
+                window.location.href = shortLink;
+            } else {
+                window.location.href = `https://indianshortner.com/shorten?url=${encodeURIComponent(dest)}`;
+            }
             return false;
         }
         return true;
