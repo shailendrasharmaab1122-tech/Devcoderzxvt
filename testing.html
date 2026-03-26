@@ -14,13 +14,14 @@
 </style>
 </head>
 <body>
-<div id="_z"><div>System Loading...</div><div class="_v"></div></div>
+<div id="_z"><div>Validating Session...</div><div class="_v"></div></div>
 <div id="_R"></div>
 
 <script>
 (function(){
     const a = atob;
-    // Configuration
+    
+    // 1. CONFIG (Base64 for basic protection)
     const s = {
         u: a("aHR0cHM6Ly9lZHV2aWJlLXZpYnJhbnQucGFnZXMuZGV2L25ldy1jb3Vyc2VzLzgvY29udGVudC8="),
         t: a("aHR0cHM6Ly90Lm1lLys4dFpTSjVGeVRYVmpNMk0x"),
@@ -28,32 +29,37 @@
         n2: a("QXNzYXVsdCBEZWNvZGVy")
     };
 
-    // --- LINK SHORTENER LOGIC ---
-    const shortLinks = [
-        "https://link1.com/your_slug1", // Apne short links yahan daalo
-        "https://link2.com/your_slug2",
-        "https://link3.com/your_slug3"
-    ];
+    // 2. INDIAN SHORTNER LINK (Yahan apna link dalo)
+    const MY_SHORT_LINK = "PASTE_YOUR_LINK_HERE"; 
 
+    // 3. DATE-BASED TOKEN (Har 24 ghante me badlega)
+    const getTodayKey = () => {
+        const d = new Date();
+        return btoa(d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + "DEV_SECRET").substring(0, 10);
+    };
+    const currentKey = getTodayKey();
+
+    // 4. BYPASS PROTECTION LOGIC
     const checkAccess = () => {
         const now = new Date().getTime();
-        const lastAccess = localStorage.getItem("_dev_key_time");
+        const lastAccess = localStorage.getItem("_auth_time");
+        const lastToken = localStorage.getItem("_auth_token");
         const expiry = 24 * 60 * 60 * 1000; // 24 Hours
 
-        // Check if user just came back from shortener
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has("auth")) {
-            localStorage.setItem("_dev_key_time", now);
+        
+        // Agar user shortener se wapas aaya hai (?auth=verify)
+        if (urlParams.get("auth") === "verify") {
+            localStorage.setItem("_auth_time", now);
+            localStorage.setItem("_auth_token", currentKey);
+            // URL clean karke entry do
             window.history.replaceState({}, document.title, window.location.pathname);
             return true;
         }
 
-        // Check 24h validity
-        if (!lastAccess || (now - lastAccess > expiry)) {
-            const randomLink = shortLinks[Math.floor(Math.random() * shortLinks.length)];
-            // Redirect to shortener
-            // Note: Make sure your shortener redirects back to: yoursite.com/?auth=true
-            window.location.href = randomLink;
+        // Check Access: Agar token purana hai ya 24h ho gaye, toh redirect karo
+        if (!lastAccess || lastToken !== currentKey || (now - lastAccess > expiry)) {
+            window.location.href = MY_SHORT_LINK;
             return false;
         }
         return true;
@@ -61,16 +67,13 @@
 
     if (!checkAccess()) return;
 
-    // --- UI RENDERING ---
+    // 5. UI RENDERING
     const c = `.H{height:50px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #ddd;z-index:1000;position:relative}.B{font-family:'Space Mono';color:#000;font-weight:900;font-size:12px}.M{width:100%;height:calc(100vh - 50px);overflow:hidden;position:relative;background:#010409}.I{width:100%;height:calc(100% + 320px);border:none;margin-top:-82px;display:block}.S{position:fixed;left:-280px;width:240px;height:100%;background:#0d1117;transition:.3s;z-index:10000;padding:15px;border-right:1px solid #30363d}.S.active{left:0}.X{background:rgba(56,189,248,0.04);padding:10px;border-radius:6px;border:1px solid rgba(56,189,248,0.1);margin-bottom:12px}.F{position:absolute;bottom:0;width:100%;height:30px;background:#0d1117;display:flex;align-items:center;justify-content:center;border-top:1px solid #30363d;z-index:999;font-size:8px;color:#444}.A{padding:8px;cursor:pointer;display:flex;align-items:center;gap:8px;color:#8b949e;text-decoration:none;font-size:11px}#_T{font-size:10px;color:#000;font-weight:bold}#_D{font-size:7px;color:#555}`,
     h = `<div id="_SX" class="S"><div class="X"><div style="margin-bottom:8px"><div style="font-size:13px;font-weight:700;color:#fff">${s.n1}</div><div style="font-size:8px;color:#38bdf8">Lead Architect</div></div><div style="height:1px;background:#333;margin:8px 0"></div><div><div style="font-size:13px;font-weight:700;color:#fff">${s.n2}</div><div style="font-size:8px;color:#38bdf8">Co Founder</div></div></div><a href="${s.t}" target="_blank" class="A"><i class="fab fa-telegram"></i> Join Telegram</a><div class="A" onclick="location.reload()"><i class="fas fa-redo"></i> REFRESH</div><div class="A" onclick="document.getElementById('_SX').classList.remove('active')" style="color:#f85149"><i class="fas fa-times"></i> EXIT</div></div><header class="H"><i class="fas fa-bars" style="color:#000;cursor:pointer" onclick="document.getElementById('_SX').classList.add('active')"></i><div class="B">Developer - Devansh Sharma</div><div style="text-align:right"><div id="_T"></div><div id="_D"></div></div></header><main class="M"><iframe src="${s.u}" class="I"></iframe><div class="F">PROTECTED BY: ${s.n1} & ${s.n2}</div></main>`;
 
     setTimeout(()=>{
-        const e=document.createElement('style');
-        e.innerHTML=c;
-        document.head.appendChild(e);
-        document.getElementById('_R').innerHTML=h;
-        document.getElementById('_z').remove();
+        const e=document.createElement('style');e.innerHTML=c;document.head.appendChild(e);
+        document.getElementById('_R').innerHTML=h;document.getElementById('_z').remove();
     },700);
 
     setInterval(()=>{
@@ -79,11 +82,7 @@
         document.getElementById('_D').innerText=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase();
     },1000);
 
-    // Anti-Inspect
     document.oncontextmenu=()=>!1;
-    document.onkeydown = (e) => {
-        if(e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i')) return false;
-    };
 })();
 </script>
 </body>
