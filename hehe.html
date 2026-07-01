@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.min.js"></script>
+    <style>
+        body, html { margin:0; padding:0; width:100%; height:100%; background:#000; overflow:hidden; }
+        video { width:100%; height:100%; }
+    </style>
+</head>
+<body>
+    <video id="vid" crossorigin="anonymous" playsinline controls autoplay></video>
+
+<script>
+    (async () => {
+        const vid = document.getElementById('vid');
+        const url = "https://sec-prod-mediacdn.pw.live/1a9f3791-03fc-4ca9-8a4c-25423a987b09/master.mpd?URLPrefix=aHR0cHM6Ly9zZWMtcHJvZC1tZWRpYWNkbi5wdy5saXZlLzFhOWYzNzkxLTAzZmMtNGNhOS04YTRjLTI1NDIzYTk4N2IwOQ&Expires=1782881821&KeyName=pw-prod-key&Signature=Zk1IDC_wsNvUDwz70WnQDgokssRW-3sPr5ytFSy6vspID5jbKsPgP08Q-kZuX90fpPXuQpMEd-XP2xU0SME7CA";
+        
+        const clearKeys = {
+            "9c933db740c1c4bc9c7a454a54e13525": "308f3fbdf1d2fafb604a83e0dad99348"
+        };
+
+        try {
+            shaka.polyfill.installAll();
+            const player = new shaka.Player(vid);
+
+            player.configure({
+                drm: {
+                    clearKeys: clearKeys
+                }
+            });
+
+            await player.load(url);
+            console.log("Video Load Success");
+        } catch (e) {
+            console.error("Critical Error:", e);
+        }
+    })();
+</script>
+</body>
+</html>
