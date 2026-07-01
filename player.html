@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PW Player</title>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <title>Player</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.min.js"></script>
     <style>
         body, html { margin:0; padding:0; width:100%; height:100%; background:#000; overflow:hidden; }
@@ -13,19 +11,9 @@
     </style>
 </head>
 <body>
-    <video id="vid" crossorigin="anonymous" playsinline controls></video>
+    <video id="vid" crossorigin="anonymous" playsinline controls autoplay></video>
 
 <script>
-    (function() {
-        if (window.MediaSource && typeof window.MediaSource.isTypeSupported === 'function') {
-            const orig = window.MediaSource.isTypeSupported;
-            window.MediaSource.isTypeSupported = (t) => {
-                if (t && (t.includes('hev1') || t.includes('hvc1'))) return false;
-                return orig.call(MediaSource, t);
-            };
-        }
-    })();
-
     (async () => {
         const params = new URLSearchParams(window.location.search);
         const lId = params.get('lectureId') || params.get('id');
@@ -40,36 +28,23 @@
 
             shaka.polyfill.installAll();
             const player = new shaka.Player(vid);
-            const playerUI = new Plyr(vid, { autoplay: true });
 
-            player.configure({
-                streaming: { bufferingGoal: 30, rebufferingGoal: 2 },
-                drm: { clearKeys: data.drmKeys?.clearKeys }
-            });
-
-            player.getNetworkingEngine().registerRequestFilter((type, request) => {
-                const url = new URL(request.uris[0]);
-                if (data.url.includes('Expires=')) {
-                    const params = new URL(data.url).searchParams;
-                    url.searchParams.set('Expires', params.get('Expires'));
-                    url.searchParams.set('KeyName', params.get('KeyName'));
-                    url.searchParams.set('Signature', params.get('Signature'));
+            if (data.drmKeys && data.drmKeys.clearKeys) {
+                const keys = {};
+                for (let kid in data.drmKeys.clearKeys) {
+                    keys[kid.replace(/-/g, "")] = data.drmKeys.clearKeys[kid];
                 }
-                request.uris[0] = url.toString();
-            });
+                player.configure({
+                    drm: {
+                        clearKeys: keys
+                    }
+                });
+            }
 
             await player.load(data.url);
-
-            const posKey = 'pos_' + lId;
-            const savedPos = localStorage.getItem(posKey);
-            if (savedPos && vid.duration) vid.currentTime = parseFloat(savedPos);
-
-            setInterval(() => {
-                if (!vid.paused && vid.currentTime > 5) localStorage.setItem(posKey, vid.currentTime);
-            }, 5000);
-
+            vid.play();
         } catch (e) {
-            console.error(e);
+            console.error("Critical Error:", e);
         }
     })();
 </script>
