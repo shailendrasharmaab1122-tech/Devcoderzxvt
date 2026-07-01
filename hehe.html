@@ -26,7 +26,7 @@
 
             const match = data.url.match(/([a-f0-9-]{36})/);
             const id = match ? match[0] : null;
-            const hlsUrl = `https://stream.pimaxer.in/${id}/hls/720/main.m3u8`;
+            const hlsUrl = `https://devcoderz-player.vercel.app/?url=https://stream.pimaxer.in/${id}/hls/720/main.m3u8`;
 
             if (Hls.isSupported()) {
                 const hls = new Hls();
